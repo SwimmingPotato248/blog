@@ -1,7 +1,6 @@
 import * as argon2 from "argon2";
 import prisma from "../../lib/prisma";
 import { z } from "zod";
-import { Prisma } from "@prisma/client";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 
 const User = z.object({
