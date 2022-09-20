@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const schema = z.object({
   email: z.string().email(),
@@ -11,14 +13,21 @@ const schema = z.object({
 });
 
 export default function Signup() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
 
-  function onSubmit(data) {
-    console.log(data);
+  async function onSubmit(data) {
+    try {
+      const res = await axios.post("/api/signup", data);
+      if (res.status === 200) router.push("/");
+    } catch (e) {
+      console.log(e.response.data);
+    }
   }
 
   return (
