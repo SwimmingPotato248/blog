@@ -18,12 +18,10 @@ export default function CreatePost() {
         data
       );
       window.location = "/";
-      console.log(res);
     } catch (e) {
       console.log(e);
     }
   }
-  console.log(errors);
 
   return (
     <div className="flex flex-col items-center">

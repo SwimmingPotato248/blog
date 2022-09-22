@@ -4,7 +4,6 @@ import prisma from "../../../lib/prisma";
 
 export default async function handler(req, res) {
   const session = await unstable_getServerSession(req, res, authOptions);
-  console.log(session);
   if (!session) return res.status(418).json({ message: "Please log in first" });
   const email = session.user.email;
   const { title, content } = req.body;
