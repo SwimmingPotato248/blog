@@ -14,7 +14,7 @@ export default function CreatePost() {
     if (!session) return console.log("Sign in first");
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/posts/create",
+        `${window.location.origin}/api/posts/create`,
         data
       );
       window.location = "/";
