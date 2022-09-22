@@ -3,7 +3,7 @@ import prisma from "../lib/prisma";
 
 export default function Home({ posts }) {
   return (
-    <div className="grid grid-cols-2 gap-6 max-w-3xl mx-auto">
+    <div className="grid grid-cols-1 gap-6 max-w-3xl mx-auto">
       {posts.map(post => {
         return (
           <Link key={post.id} href={`/posts/${post.id}`}>
@@ -23,7 +23,7 @@ export async function getServerSideProps() {
     orderBy: {
       createdAt: "desc",
     },
-    take: 5,
+    take: 10,
     include: {
       author: true,
     },

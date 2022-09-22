@@ -4,7 +4,6 @@ import * as argon2 from "argon2";
 export default async function handler(req, res) {
   if (req.method !== "POST")
     return res.status(405).json({ message: "Method not allowed" });
-  console.log(req.body);
   const { email, name, password } = req.body;
   const hash = await argon2.hash(password);
   try {

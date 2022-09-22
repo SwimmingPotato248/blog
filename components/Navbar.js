@@ -15,7 +15,10 @@ export default function Navbar() {
             <button onClick={() => signOut()}>Log out</button>
           </>
         ) : (
-          <button onClick={() => signIn()}>Sign In</button>
+          <>
+            <button onClick={() => signIn()}>Sign In</button>
+            <Link href="/signup">Sign Up</Link>
+          </>
         )}
       </div>
     </nav>
