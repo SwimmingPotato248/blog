@@ -19,12 +19,21 @@ export const authOptions = {
           },
         });
         if (!user) return null;
-        const pwMatch = argon2.verify(user.password, password);
+        const pwMatch = await argon2.verify(user.password, password);
         if (!pwMatch) return null;
         return user;
       },
     }),
   ],
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
+    },
+  },
 };
 
 export default NextAuth(authOptions);

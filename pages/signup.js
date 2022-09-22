@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
 
 export default function SignUp() {
   const {
@@ -12,7 +13,7 @@ export default function SignUp() {
   async function onSubmit(data) {
     try {
       const res = await axios.post("/api/signup", data);
-      console.log(res);
+      signIn(undefined, { callbackUrl: "/" });
     } catch (e) {
       console.log(e);
     }
