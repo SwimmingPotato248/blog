@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import Head from "next/head";
 import { useForm } from "react-hook-form";
 
 export default function CreatePost() {
@@ -11,7 +12,8 @@ export default function CreatePost() {
   } = useForm();
 
   async function onSubmit(data) {
-    if (!session) return console.log("Sign in first");
+    if (!session) return signIn("/posts/create");
+    console.log(data);
     try {
       const res = await axios.post(
         `${window.location.origin}/api/posts/create`,
@@ -24,30 +26,35 @@ export default function CreatePost() {
   }
 
   return (
-    <div className="flex flex-col items-center">
-      <form
-        className="flex flex-col gap-2 mt-4"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <input
-          type="text"
-          placeholder="Post title"
-          {...register("title", { required: true })}
-        />
-        {errors.title && <p>Title is required</p>}
-        <textarea
-          rows="15"
-          cols="50"
-          className="resize-none"
-          placeholder="Post content"
-          {...register("content")}
-        />
-        <input
-          type="submit"
-          value="Submit Post"
-          className="rounded bg-blue-500 hover:bg-blue-700 border-black border-2"
-        />
-      </form>
-    </div>
+    <>
+      <Head>
+        <title key="title">Create post</title>
+      </Head>
+      <div className="flex flex-col items-center">
+        <form
+          className="flex flex-col gap-2 mt-4"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <input
+            type="text"
+            placeholder="Post title"
+            {...register("title", { required: true })}
+          />
+          {errors.title && <p>Title is required</p>}
+          <textarea
+            rows="15"
+            cols="50"
+            className="resize-none"
+            placeholder="Post content"
+            {...register("content")}
+          />
+          <input
+            type="submit"
+            value="Submit Post"
+            className="rounded bg-blue-500 hover:bg-blue-700 border-black border-2"
+          />
+        </form>
+      </div>
+    </>
   );
 }

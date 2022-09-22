@@ -1,17 +1,23 @@
+import Head from "next/head";
 import Link from "next/link";
-import prisma from "../lib/prisma";
+import prisma from "@/lib/prisma";
 
 export default function Home({ posts }) {
   return (
     <div className="grid grid-cols-1 gap-6 max-w-3xl mx-auto">
       {posts.map(post => {
         return (
-          <Link key={post.id} href={`/posts/${post.id}`}>
-            <div className="bg-slate-200 p-4 cursor-pointer">
-              <h1 className="text-4xl">{post.title}</h1>
-              <p>Author: {post.author.name}</p>
-            </div>
-          </Link>
+          <>
+            <Head>
+              <title key="title">Blog</title>
+            </Head>
+            <Link key={post.id} href={`/posts/${post.id}`}>
+              <div className="bg-slate-200 p-4 cursor-pointer rounded-2xl">
+                <h1 className="text-4xl">{post.title}</h1>
+                <p>Author: {post.author.name}</p>
+              </div>
+            </Link>
+          </>
         );
       })}
     </div>

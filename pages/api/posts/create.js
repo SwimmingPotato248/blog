@@ -7,6 +7,7 @@ export default async function handler(req, res) {
   if (!session) return res.status(401).json({ message: "Please log in first" });
   const email = session.user.email;
   const { title, content } = req.body;
+  console.log(content);
   try {
     await prisma.post.create({
       data: {
